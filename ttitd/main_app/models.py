@@ -10,9 +10,9 @@ class Profile(models.Model):
     gender = models.CharField(max_length=15)
     age = models.SmallIntegerField()
     weight = models.PositiveSmallIntegerField()
-    bio
-    social_link
-    exp
-    profile_photo
-    user_key
-    ghost_key
+    bio = models.TextField(max_length=250)
+    social_link = models.CharField(max_length=100)
+    exp = models.IntegerField(default=0)
+    # profile_photo = 
+    # user_key =
+    # ghost_key

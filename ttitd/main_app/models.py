@@ -6,13 +6,18 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     profile_name = models.CharField(max_length=100)
+    user_key = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=200)
     gender = models.CharField(max_length=15)
-    age = models.SmallIntegerField()
-    weight = models.PositiveSmallIntegerField()
+    age = models.IntegerField()
+    weight = models.IntegerField()
     bio = models.TextField(max_length=250)
     social_link = models.CharField(max_length=100)
     exp = models.IntegerField(default=0)
-    # profile_photo = 
-    # user_key =
-    # ghost_key
+    ghost_key = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.ghost_key == False:
+            return self.profile_name
+        else:
+            return 'Anonymous'

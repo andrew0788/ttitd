@@ -30,9 +30,9 @@
         </ul>
         <ul class="right">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'toys_create' %}">Community</a></li>
-            <li><a href="{% url 'toys_create' %}">Drugs</a></li>
-            <li><a href="{% url 'toys_index' %}">Experiences</a></li>
+            <li><a href="{% url 'community'}">Community</a></li>
+            <li><a href="{% url 'drugs_create' %}">Drugs</a></li>
+            <li><a href="{% url 'experience_index' %}">Experiences</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
             {% else %}
             <li><a href="{% url 'signup' %}">Sign Up</a></li>

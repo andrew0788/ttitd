@@ -8,8 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 
-
-# Create your views here.
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -18,13 +16,13 @@ def signup(request):
       user = form.save()
       login(request, user)
       profile = Profile.objects.create(
+          profile_name = request.user.get_username(),
           user_key = request.user,
       )
       profile.save()
       return redirect('index')
     else:
       error_message = 'Invalid credentials - try again'
-  # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)

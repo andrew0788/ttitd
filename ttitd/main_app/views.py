@@ -27,3 +27,10 @@ def signup(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def community(request):
+  return render(request, 'community.html')
+
+@login_required
+def profile(request):
+  return render(request, 'profile.html')

@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Profile(models.Model):
-    profile_name = models.CharField(max_length=100)
     user_key = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_name = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
     gender = models.CharField(max_length=15)
     age = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)
     bio = models.TextField(max_length=250)
-    social_link = models.CharField(max_length=100)
+    social_link = models.URLField('website', blank=True)
     exp = models.IntegerField(default=0)
     ghost_key = models.BooleanField(default=False)
 
@@ -21,3 +21,20 @@ class Profile(models.Model):
             return self.profile_name
         else:
             return 'Anonymous'
+
+class Drug(models.Model):
+    name = models.CharField(max_length=100)
+    discription = models.TextField(max_length=500)
+    req_dose = models.CharField(max_length=150)
+    view_count = models.IntegerField(default=0)
+    #effects = models.ManyToManyField('Effects', through=user_drug_effects)
+
+#class Experince(models.Model):
+
+class Effect(models.Model):
+    name = models.CharField(max_length=50)
+
+class user_drug_effects(models.Model):
+    adj = models.ForeignKey('Effect', on_delete=models.CASCADE)
+    drug = models.ForeignKey('Drug', on_delete=models.CASCADE)
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE)

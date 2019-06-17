@@ -7,3 +7,4 @@ admin.site.register(Profile)
 admin.site.register(Drug)
 admin.site.register(Experience)
 admin.site.register(Photo)
+

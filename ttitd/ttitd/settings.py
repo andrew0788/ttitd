@@ -127,7 +127,7 @@ STATICFILES_FINDERS = [
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/main_app/static/'
+STATIC_ROOT = 'main_app/static/'
 
 LOGIN_REDIRECT_URL = '/home/'
 

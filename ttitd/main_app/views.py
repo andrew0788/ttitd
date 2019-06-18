@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import User, Profile, Drug, Effect, user_drug_effects
+from .models import User, Profile, Drug, Effect, User_Drug_Effects
 from .forms import ProfileForm
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -43,6 +43,12 @@ p_user = User.id
 #   context = {'form': form, 'error_message': error_message}
 #   return render(request, 'registration/signup.html', context)
 
+
+
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'ttitd'
+
+# Create your views here.
 
 def signup(request):
   error_message = ''
@@ -90,6 +96,20 @@ def trips_all(request):
 @login_required
 def profile(request):
   p = Profile.objects.get(user_key=request.user)
-  return render(request, 'profiles/detail.html', {
-      'p': p
-  })
+  return render(request, 'profiles/detail.html', {'p': p})
+
+@login_required
+def add_photo(request, drug_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+    try:
+      s3.upload_fileobj(photo_file, BUCKET, key)
+      url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      photo = Photo(url=url, drug_id=drug_id)
+      photo.save()
+    except:
+      print('An error occurred uploading file to S3')
+  return redirect('detail', drug_id=drug_id)
+

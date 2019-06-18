@@ -29,6 +29,7 @@ class Drug(models.Model):
     view_count = models.IntegerField(default=0)
     effects = models.ManyToManyField('Effect', through='user_drug_effects')
 
+
 #class Experince(models.Model):
 
 class Effect(models.Model):
@@ -38,7 +39,6 @@ class user_drug_effects(models.Model):
     adj = models.ForeignKey('Effect', on_delete=models.CASCADE)
     drug = models.ForeignKey('Drug', on_delete=models.CASCADE)
     user = models.ForeignKey('Profile', on_delete=models.CASCADE)
-
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)

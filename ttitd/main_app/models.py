@@ -25,7 +25,7 @@ class Profile(models.Model):
 
 class Drug(models.Model):
     name = models.CharField(max_length=100)
-    discription = models.TextField(max_length=500)
+    description = models.TextField(max_length=500)
     req_dose = models.CharField(max_length=150)
     view_count = models.IntegerField(default=0)
     effects = models.ManyToManyField('Effect', through='User_Drug_Effects')

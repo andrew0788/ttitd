@@ -114,7 +114,7 @@ def add_photo(request, drug_id):
   return redirect('detail', drug_id=drug_id)
 
 
-
+s
 
 
 

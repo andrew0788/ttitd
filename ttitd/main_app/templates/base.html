@@ -1,4 +1,5 @@
 {% load static %}
+{% load sass_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,11 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cat Collector</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <script src="https://cdnjs.com/libraries/bulma"></script>
+    <title>That Time in the Desert</title>
+    <link href="{% sass_src 'styles/style.scss' %}" rel="stylesheet" type="text/css" />
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdnjs.com/libraries/bulma"></script>
 </head>
 
 <body>
@@ -22,17 +22,17 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="page-footer">
+    <footer class="navbar">
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav">
         <ul>
             <li><a href="/" class="left brand-logo">Logo</a></li>
         </ul>
         <ul class="right">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'toys_create' %}">Community</a></li>
-            <li><a href="{% url 'toys_create' %}">Drugs</a></li>
-            <li><a href="{% url 'toys_index' %}">Experiences</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li><a href="{% url 'trips_all' %}">Trip Reports</a></li>
+            <li><a href="{% url 'substances_all' %}">Substances</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
             {% else %}
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
@@ -41,7 +41,7 @@
         </ul>
             </div>
         </nav>
-        <div class="right">All Rights Reserved, &copy; 2019 Cat Collector &nbsp;</div>
+        <div class="right">Filler text</div>
     </footer>
 </body>
 

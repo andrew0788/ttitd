@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Substances</h1>
+{% for d in d %}
+    Substance: {{ d.profile_name }}
+    <br>
+    description: {{ d.description }}
+    <br>
+    Recommended Dosage: {{ d.req_dose }}
+    <br>
+    Views: {{ d.view_count }}
+    <br>
+{% endfor %}
+
+{% endblock %}
+
+s

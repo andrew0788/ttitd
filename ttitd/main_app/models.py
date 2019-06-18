@@ -1,3 +1,4 @@
+from model_utils import Choices
 from django.db import models
 from datetime import date
 from django.contrib.auth.models import User
@@ -27,7 +28,7 @@ class Drug(models.Model):
     discription = models.TextField(max_length=500)
     req_dose = models.CharField(max_length=150)
     view_count = models.IntegerField(default=0)
-    effects = models.ManyToManyField('Effect', through='user_drug_effects')
+    effects = models.ManyToManyField('Effect', through='User_Drug_Effects')
 
 
 #class Experince(models.Model):
@@ -35,7 +36,7 @@ class Drug(models.Model):
 class Effect(models.Model):
     name = models.CharField(max_length=50)
 
-class user_drug_effects(models.Model):
+class User_Drug_Effects(models.Model):
     adj = models.ForeignKey('Effect', on_delete=models.CASCADE)
     drug = models.ForeignKey('Drug', on_delete=models.CASCADE)
     user = models.ForeignKey('Profile', on_delete=models.CASCADE)
@@ -46,3 +47,26 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for drug_id: at {self.drug_id} @{self.url}"
+
+
+class Trip_Report(models.Model):
+    METHODS = Choices('ediable', 'smoked', 'oil/lotion', 'other')
+    OTHER_DRUGS = Choices('Alcohol', 'Cannabis', 'Mushrooms', 'Payote')
+    user_key = models.ForeignKey(User, on_delete=models.CASCADE)
+    drug_key = models.ForeignKey(Drug, on_delete=models.CASCADE)
+    text_content = models.TextField(max_length=250)
+    date = models.DateField()
+    method = models.CharField(max_length=1, choices=METHODS)
+    other_drugs_taken = models.CharField(max_length= 4, choices=OTHER_DRUGS)
+    effects = models.ManyToManyField(User_Drug_Effects)
+
+class Report_Cat(models.Model):
+    EXPERINCES = Choices('At the Park', 'At a Concert', 'At home', 'Medicinal', 'At Work', 'Other')
+    category = models.CharField(max_length=1, choices=EXPERINCES)
+    trip_report_key = models.ForeignKey(Trip_Report, on_delete=models.CASCADE)
+    user_key = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Report_Comment(models.Model):
+    trip_report_key = models.ForeignKey(Trip_Report, on_delete=models.CASCADE)
+    user_key = models.ForeignKey(User, on_delete=models.CASCADE)
+    text_content = models.TextField(max_length=200)

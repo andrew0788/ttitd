@@ -22,7 +22,7 @@ p_user = User.id
 
 # def signup(request):
 #   # get_profile()
-#   error_message = ''  
+#   error_message = ''
 #   form = UserCreationForm()
 #   if request.method == 'POST':
 #     user_form = UserCreationForm(request.POST)
@@ -113,3 +113,19 @@ def add_photo(request, drug_id):
       print('An error occurred uploading file to S3')
   return redirect('detail', drug_id=drug_id)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+s

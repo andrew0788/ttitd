@@ -27,7 +27,8 @@ class Drug(models.Model):
     discription = models.TextField(max_length=500)
     req_dose = models.CharField(max_length=150)
     view_count = models.IntegerField(default=0)
-    #effects = models.ManyToManyField('Effects', through=user_drug_effects)
+    effects = models.ManyToManyField('Effect', through='user_drug_effects')
+
 
 #class Experince(models.Model):
 
@@ -38,3 +39,10 @@ class user_drug_effects(models.Model):
     adj = models.ForeignKey('Effect', on_delete=models.CASCADE)
     drug = models.ForeignKey('Drug', on_delete=models.CASCADE)
     user = models.ForeignKey('Profile', on_delete=models.CASCADE)
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    drug = models.ForeignKey(Drug, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for drug_id: at {self.drug_id} @{self.url}"

@@ -54,14 +54,11 @@ def signup(request):
   error_message = ''
   if request.method == 'POST':
     form = UserCreationForm(request.POST)
-    if form.is_valid():
+    profile_form = ProfileForm(request.POST)
+    if form.is_valid() and profile_form.is_valid():
+      profile = profile_form.save()
       user = form.save()
       login(request, user)
-      profile = Profile.objects.create(
-          profile_name=request.user.get_username(),
-          user_key=request.user,
-      )
-      profile.save()
       return redirect('index')
     else:
       error_message = 'Invalid credentials - try again'
@@ -112,20 +109,3 @@ def add_photo(request, drug_id):
     except:
       print('An error occurred uploading file to S3')
   return redirect('detail', drug_id=drug_id)
-
-
-
-s
-
-
-
-
-
-
-
-
-
-
-
-
-s

@@ -14,7 +14,8 @@ from django.db.models.signals import post_save
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
 
-# Create your views here.
+def home(request):
+  return render(request, 'home.html')
 
 def home(request):
     return render(request, 'home.html')
@@ -65,7 +66,7 @@ def substances_all(request):
   })
 
 def trips_all(request):
-  return render(request, 'trips/all.html')
+  return render(request, 'trips/index.html')
 
 
 @login_required

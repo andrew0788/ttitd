@@ -25,6 +25,7 @@ def profile(request):
 
     return render(request, 'profile/detail.html', {'user_id': user_id})
 
+
 # To access user profile use:
 # users = User.objects.all().select_related('profile')
 

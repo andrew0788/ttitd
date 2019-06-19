@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from .models import Profile, Drug, Effect, User_Drug_Effects
 from .forms import ProfileForm, UserForm
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -10,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from .models import Profile, Drug, Effect, User_Drug_Effects, User
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
@@ -17,16 +17,13 @@ BUCKET = 'ttitd'
 def home(request):
   return render(request, 'home.html')
 
-def home(request):
-    return render(request, 'home.html')
-    @login_required
-    def profile(request):
-        profile = Profile.objects.get(user_key=request.user)
-        return render(request, 'profiles/detail.html', {'profile': profile})
+@login_required
+def profile(request):
+    users_id = User.objects.all().select_related('user_id')
+    return render(request, 'profile/detail.html', {'user_id': user_id})
 
 # To access user profile use:
 # users = User.objects.all().select_related('profile')
-
 
 def signup(request):
   if request.method == 'POST':
@@ -42,10 +39,8 @@ def signup(request):
   context = {'user_form': user_form}
   return render(request, 'registration/signup.html', context)
 
-
-
 @login_required
-def profile_update(UpdateView):
+def profile_update(request, user_id):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST)
         if form.is_valid():
@@ -56,7 +51,7 @@ def profile_update(UpdateView):
     else:
         profile_form = ProfileForm()
     context = {'profile_form': profile_form}
-    return render(request, 'ProfileForm', context)
+    return render('profile_update', user_id=user_id)
 
 
 def substances_all(request):

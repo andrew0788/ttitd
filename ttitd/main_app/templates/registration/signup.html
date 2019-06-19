@@ -8,11 +8,8 @@
 <form method="post" action="{% url 'signup' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    {{ p_form.as_p}}
+    {{ prof }}
     <input type="submit" class="btn" value="signup">
 </form>
 
-
 {% endblock %}
-
-s

@@ -30,11 +30,16 @@ class Drug(models.Model):
     view_count = models.IntegerField(default=0)
     effects = models.ManyToManyField('Effect', through='User_Drug_Effects')
 
+    def __str__(self):
+        return self.name
 
 #class Experince(models.Model):
 
 class Effect(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 class User_Drug_Effects(models.Model):
     adj = models.ForeignKey('Effect', on_delete=models.CASCADE)

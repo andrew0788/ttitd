@@ -81,9 +81,9 @@ def home(request):
   return render(request, 'home.html')
 
 def substances_all(request):
-  d = Drug.objects.all()
+  substance = Drug.objects.all()
   return render(request, 'substances/all.html', {
-    'd': d
+    'substance': substance
   })
 
 def trips_all(request):

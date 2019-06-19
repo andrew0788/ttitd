@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>That Time in the Desert</title>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <link href="{% sass_src 'styles/style.scss' %}" rel="stylesheet" type="text/css" />
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://cdnjs.com/libraries/bulma"></script>
 </head>
 
 <body>
@@ -22,12 +22,32 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="navbar">
-        <nav>
-            <div class="nav">
+    <footer>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <figure class="image is-32x32">
+                        <a href="/"><img src="static/assets/img/nav/sherpa_nav.png"></a>
+                    </figure>
+                </a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}">Profile</a>
+                        <a href="{% url 'trips_all' %}">Trip Reports</a>
+                        <a href="{% url 'substances_all' %}">Substances</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                        {% else %}
+                        <a href="{% url 'signup' %}">Sign Up</a>
+                        <a href="{% url 'login' %}">Log In</a>
+                        {% endif %}
+            </div>
+            <div>
         <ul>
-            <li><a href="/" class="left brand-logo">Logo</a></li>
-        </ul>
+            <figure class="image is-32x32">
+                <a href="/"><img src="static/assets/img/nav/sherpa_nav.png"></a>
+            </figure>
         <ul class="right">
             {% if user.is_authenticated %}
             <li><a href="{% url 'profile' %}">Profile</a></li>
@@ -41,8 +61,10 @@
         </ul>
             </div>
         </nav>
-        <div class="right">Filler text</div>
     </footer>
 </body>
 
 </html>
+
+
+s

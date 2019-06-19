@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import User, Profile, Drug, Effect, User_Drug_Effects
-from .forms import ProfileForm
+from .models import Profile, Drug, Effect, User_Drug_Effects
+from .forms import ProfileForm, UserForm
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -11,89 +11,62 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-p_user = User.id
-
-# users = User.objects.all().select_related(Profile.user_key)
-
-# def get_profile(request):
-#     if request.method == 'GET':
-#         p_form = ProfileForm()
-#     return render(request, 'signup.html', {'p_form': p_form})
-
-# def signup(request):
-#   # get_profile()
-#   error_message = ''
-#   form = UserCreationForm()
-#   if request.method == 'POST':
-#     user_form = UserCreationForm(request.POST)
-#     # profile_form = ProfileForm(request.POST, instance=request.user.profile)
-#     if user_form.is_valid():
-#       user_form = form.save()
-#       login(request, user)
-#       profile = Profile.objects.create(
-#           profile_name = request.user.get_username(),
-#           user_key = request.user,
-#       )
-#       profile.save()
-#       print("this worked")
-#       return redirect('index')
-#     else:
-#       error_message = 'Invalid credentials - try again'
-#   form = UserCreationForm()
-#   context = {'form': form, 'error_message': error_message}
-#   return render(request, 'registration/signup.html', context)
-
-
-
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
 
 # Create your views here.
 
+
+# To access user profile use:
+# users = User.objects.all().select_related('profile')
+
+
 def signup(request):
-  error_message = ''
   if request.method == 'POST':
-    form = UserCreationForm(request.POST)
-    profile_form = ProfileForm(request.POST)
-    if form.is_valid() and profile_form.is_valid():
-      profile = profile_form.save()
-      user = form.save()
+    user_form = UserCreationForm(request.POST)
+    if user_form.is_valid():
+      user = user_form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('/') #Update to route to the Profile Update view
     else:
-      error_message = 'Invalid credentials - try again'
-  form = UserCreationForm()
-  context = {'form': form, 'error_message': error_message}
+      error_message = 'Invalid credentials -- try again'
+  else:
+    user_form = UserCreationForm()
+  context = {'user_form': user_form}
   return render(request, 'registration/signup.html', context)
-
-
-class ProfileCreate(LoginRequiredMixin, CreateView):
-  model = Profile
-  fields = ['name', 'user_key']
-
-def form_valid(self, form):
-  # Assign the logged in user
-  form.instance.user = self.request.user
-  # Let the CreateView do its job as usual
-  return super().form_valid(form)
-
-def home(request):
-  return render(request, 'home.html')
-
-def substances_all(request):
-  d = Drug.objects.all()
-  return render(request, 'substances/all.html', {
-    'd': d
-  })
-
-def trips_all(request):
-  return render(request, 'trips/all.html')
 
 
 @login_required
 def profile(request):
   p = Profile.objects.get(user_key=request.user)
   return render(request, 'profiles/detail.html', {'p': p})
+
+@login_required
+def profile_update(UpdateView):
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST)
+        if form.is_valid():
+            user = profile_form.save()
+            return redirect('/')
+        else:
+            error_message = 'Invalid credentials -- try again'
+    else:
+        profile_form = ProfileForm()
+    context = {'profile_form': profile_form}
+    return render(request, 'ProfileForm', context)
+
+def home(request):
+  return render(request, 'home.html')
+
+def substances_all(request):
+  substance = Drug.objects.all()
+  return render(request, 'substances/all.html', {
+    'substance': substance
+  })
+
+def trips_all(request):
+  return render(request, 'trips/all.html')
+
 
 @login_required
 def add_photo(request, drug_id):
@@ -109,3 +82,49 @@ def add_photo(request, drug_id):
     except:
       print('An error occurred uploading file to S3')
   return redirect('detail', drug_id=drug_id)
+
+  # users = User.objects.all().select_related(Profile.user_key)
+
+  # def get_profile(request):
+  #     if request.method == 'GET':
+  #         p_form = ProfileForm()
+  #     return render(request, 'signup.html', {'p_form': p_form})
+
+  # def signup(request):
+  #   # get_profile()
+  #   error_message = ''
+  #   form = UserCreationForm()
+  #   if request.method == 'POST':
+  #     user_form = UserCreationForm(request.POST)
+  #     # profile_form = ProfileForm(request.POST, instance=request.user.profile)
+  #     if user_form.is_valid():
+  #       user_form = form.save()
+  #       login(request, user)
+  #       profile = Profile.objects.create(
+  #           profile_name = request.user.get_username(),
+  #           user_key = request.user,
+  #       )
+  #       profile.save()
+  #       print("this worked")
+  #       return redirect('index')
+  #     else:
+  #       error_message = 'Invalid credentials - try again'
+  #   form = UserCreationForm()
+  #   context = {'form': form, 'error_message': error_message}
+  #   return render(request, 'registration/signup.html', context)
+
+
+
+
+
+
+
+  # class ProfileCreate(CreateView):
+  #   model = Profile
+  #   fields = ['name', 'user_key']
+  #
+  # def form_valid(self, form):
+  #   # Assign the logged in user
+  #   form.instance.user = self.request.user
+  #   # Let the CreateView do its job as usual
+  #   return super().form_valid(form)

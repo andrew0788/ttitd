@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from .models import Profile, Drug, Effect, User_Drug_Effects
 from .forms import ProfileForm, UserForm
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -9,7 +8,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
+from django.db import transaction
 from django.db.models.signals import post_save
+from .models import Profile, Drug, Effect, User_Drug_Effects, User
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
@@ -17,16 +18,15 @@ BUCKET = 'ttitd'
 def home(request):
   return render(request, 'home.html')
 
-def home(request):
-    return render(request, 'home.html')
-    @login_required
-    def profile(request):
-        profile = Profile.objects.get(user_key=request.user)
-        return render(request, 'profiles/detail.html', {'profile': profile})
+@login_required
+def profile(request):
+    profile = request.user.profile
+    user_id = request.user.id
+
+    return render(request, 'profile/detail.html', {'user_id': user_id})
 
 # To access user profile use:
 # users = User.objects.all().select_related('profile')
-
 
 def signup(request):
   if request.method == 'POST':
@@ -42,22 +42,43 @@ def signup(request):
   context = {'user_form': user_form}
   return render(request, 'registration/signup.html', context)
 
-
+# @login_required
+# def profile_update(request):
+#     if request.method == 'POST':
+#         profile_form = ProfileForm(request.POST)
+#         if profile_form.is_valid():
+#             user = profile_form.save()
+#             return redirect('/')
+#         else:
+#             error_message = 'Invalid credentials -- try again'
+#     else:
+#         profile_form = ProfileForm()
+#
+#     return render(request, 'profile/profile_update.html', {'profile_form': profile_form})
+#
+# def update_profile(request, user_id):
+#     user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
+#     user.save()
 
 @login_required
-def profile_update(UpdateView):
+@transaction.atomic
+def profile_update(request):
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST)
-        if form.is_valid():
-            user = profile_form.save()
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
             return redirect('/')
         else:
             error_message = 'Invalid credentials -- try again'
     else:
-        profile_form = ProfileForm()
-    context = {'profile_form': profile_form}
-    return render(request, 'ProfileForm', context)
-
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profile/profile_update.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
 
 def substances_all(request):
   substance = Drug.objects.all()

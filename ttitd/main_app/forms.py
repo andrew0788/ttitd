@@ -11,7 +11,8 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = [
+        print(model)
+        fields = (
             'profile_name',
             'location',
             'gender',
@@ -20,4 +21,4 @@ class ProfileForm(forms.ModelForm):
             'bio',
             'social_link',
             'ghost_key'
-        ]
+        )

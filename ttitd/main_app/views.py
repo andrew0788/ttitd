@@ -23,7 +23,10 @@ def profile(request):
     profile = request.user.profile
     user_id = request.user.id
 
-    return render(request, 'profile/detail.html', {'user_id': user_id})
+    return render(request, 'profile/detail.html', {
+      'user_id': user_id,
+      'p': profile,
+      })
 
 
 # To access user profile use:
@@ -90,6 +93,10 @@ def substances_all(request):
 def trips_all(request):
   return render(request, 'trips/index.html')
 
+# delete this
+def trips_detail(request):
+  return render(request, 'trips/detail.html')
+# *** delete this
 
 @login_required
 def add_photo(request, drug_id):

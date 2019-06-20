@@ -67,6 +67,7 @@ class Photo(models.Model):
 
 
 class Trip_Report(models.Model):
+    trip_name = models.CharField(max_length=50)
     METHODS = Choices('ediable', 'smoked', 'oil/lotion', 'other')
     OTHER_DRUGS = Choices('Alcohol', 'Cannabis', 'Mushrooms', 'Payote')
     user_key = models.ForeignKey(User, on_delete=models.CASCADE)

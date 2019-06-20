@@ -1,22 +1,22 @@
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 700px) {
   .mobi_nav {
     overflow: hidden;
     height: 32px;
     width: 32px; }
   .mobi_nav_links {
-    display: hidden; }
+    display: none; }
   .navbar-menu {
-    display: hidden; } }
+    display: none; } }
 
-.mobi_nav {
-  display: hidden; }
+.mobi_nav_links {
+  display: none; }
 
 body {
   background-color: grey;
   margin: 0px; }
 
 .nav_links {
-  display: hidden; }
+  display: none; }
 
 .nav_links a {
   background: slateblue; }

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib import auth
-from .models import Profile, User
+from .models import Profile, User, Trip_Report, Report_Comment
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -20,4 +20,26 @@ class ProfileForm(forms.ModelForm):
             'bio',
             'social_link',
             'ghost_key'
+        )
+
+class TripForm(forms.ModelForm):
+    class Meta:
+        model = Trip_Report
+        fields = (
+            'trip_name',
+            'METHODS',
+            'OTHER_DRUGS',
+            'text_content',
+            'date',
+            'method',
+            'other_drugs_taken',
+            'effects'
+        )
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Trip_Report
+        fields = (
+            'text_content'
         )

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends 'base.html' %}
 {% block content %}
 <div class="tile is-ancestor">
@@ -10,10 +9,10 @@
         </article>
         <div class="tile">
             <article class="tile">
-                <p class="small">Required Dose = 1234567890. Do not delete. This is all placeholder.</p>
+                <p class="small">Recommended Doese: {{ substance.req_dose }} Do not delete. This is all placeholder.</p>
             </article>
             <article class="tile">
-                <p class="small">Views = 1234567890 - Do not delete. This is all placeholder.</p>
+                <p class="small">Views = {{ substance.view_count }}- Do not delete. This is all placeholder.</p>
             </article>
         </div>
     </div>
@@ -25,17 +24,12 @@
 <br>
 
 <div class="tile is-ancestor">
-   <p class="title is-parent">Marijuana</p>
+   <p class="title is-parent">{{ substance.name }}</p>
     <article class="tile is-child box">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>{{ substance.description }}</p>
     </article>
     <article class="tile is-child box">
-<p>Nibh sed pulvinar proin gravida hendrerit lectus. Vivamus at augue eget arcu dictum varius duis. Sit amet consectetur
-adipiscing elit duis tristique sollicitudin nibh. Neque ornare aenean euismod elementum nisi quis eleifend quam. Massa
-tincidunt dui ut ornare lectus sit amet est.</p>
+<p>{{ substance.effects }}</p>
     </article>
 </div>
 
@@ -87,7 +81,3 @@ tincidunt dui ut ornare lectus sit amet est.</p>
 
 
 {% endblock %}
-=======
-
-
->>>>>>> b2b99c20c5f0051c037db54dc69ef6f4b7580c06

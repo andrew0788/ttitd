@@ -3,9 +3,9 @@
 
 <h1>Substances</h1>
 {% for d in substance %}
-    Substance: {{ d.profile_name }}
+    Substance: {{ d.name }}
     <br>
-    description: {{ d.description }}
+    <a href="{% url 'substances_detail' d.id %}">description:</a> {{ d.description }}
     <br>
     Recommended Dosage: {{ d.req_dose }}
     <br>

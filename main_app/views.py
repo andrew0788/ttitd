@@ -63,11 +63,15 @@ def profile_update(request):
         'profile_form': profile_form
     })
 
-def substances_all(request):
+def substances_index(request):
   substance = Drug.objects.all()
   return render(request, 'substances/index.html', {
     'substance': substance
   })
+
+def substances_detail(request, d_id):
+    substance = Drug.objects.get(id=d_id)
+    return render(request, 'substances/detail.html', {'substance': substance})
 
 def trips_all(request):
   return render(request, 'trips/index.html')

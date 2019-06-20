@@ -22,7 +22,7 @@
                                         {% if user.is_authenticated %}
                                         <a class="button is-light" href="{% url 'profile' %}">Profile</a>
                                         <a class="button is-light" href="{% url 'trips_all' %}">Trip Reports</a>
-                                        <a class="button is-light" href="{% url 'substances_all' %}">Substances</a>
+                                        <a class="button is-light" href="{% url 'substances_index' %}">Substances</a>
                                         <a class="button is-light" href="{% url 'logout' %}">Log Out</a>
                                         {% else %}
                                         <a class="button is-dark" href="{% url 'signup' %}">Sign Up</a>
@@ -55,7 +55,7 @@
                         {% if user.is_authenticated %}
                         <a class="button is-black" href="{% url 'profile' %}">Profile</a>
                         <a class="button is-black" href="{% url 'trips_all' %}">Trip Reports</a>
-                        <a class="button is-black" href="{% url 'substances_all' %}">Substances</a>
+                        <a class="button is-black" href="{% url 'substances_index' %}">Substances</a>
                         <a class="button is-black" href="{% url 'logout' %}">Log Out</a>
                         {% else %}
                         <a class="button is-black" href="{% url 'signup' %}">Sign Up</a>

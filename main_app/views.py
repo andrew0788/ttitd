@@ -32,7 +32,7 @@ def signup(request):
   if request.method == 'POST':
     user_form = UserCreationForm(request.POST)
     if user_form.is_valid():
-      user = user_form.save()
+      user_form.save()
       login(request, user)
       return redirect('/') #Update to route to the Profile Update view
     else:
@@ -65,7 +65,7 @@ def profile_update(request):
 
 def substances_all(request):
   substance = Drug.objects.all()
-  return render(request, 'substances/index.html', {
+  return render(request, 'substances/all.html', {
     'substance': substance
   })
 
@@ -86,4 +86,4 @@ def add_photo(request, drug_id):
       photo.save()
     except:
       print('An error occurred uploading file to S3')
-  return redirect('detail', drug_id=drug_id)
+    return redirect('detail', drug_id=drug_id)

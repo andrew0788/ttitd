@@ -11,7 +11,6 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        print(model)
         fields = (
             'profile_name',
             'location',

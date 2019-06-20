@@ -1,22 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>This is the profile</h1>
-
-    Name: {{ user.profile.profile_name }}
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-left">
+                <figure class="image is-48x48">
+                    <img src="https://image-cdn.neatoshop.com/styleimg/86770/none/black/default/417000-20;1556905905t.jpg">
+                </figure>
+            </div>
+            <div class="media-content">
+                <p class="title is-4">{{ p.profile_name }} <a class="button is-link is-small is-rounded" href="{{ p.social_link }}">Check out my social media</a></p>
+                <p class="subtitle is-6">{{ p.location }}</p>
+            </div>
+        </div>
+        <div class="content">
+            {{ p.bio }}
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% if p.user_key == request.user %}
+    <nav class="level">
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Age</p>
+                <p class="title">{{ p.age }}</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Gender</p>
+                <p class="title">{{ p.gender }}</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Weight</p>
+                <p class="title">{{ p.weight }}</p>
+            </div>
+        </div>
+    </nav>
     <br>
-    Location: {{ user.profile.location }}
     <br>
-    Gender: {{ user.profile.gender }}
-    <br>
-    Age: {{ p.age }}
-    <br>
-    Weight: {{ p.weight }}
-    <br>
-    Bio: {{ p.bio }}
-    <br>
-    Social: {{ p.social_link }}
-    <br>
-    <br>
-    <h2><a href="{% url 'profile_update' %}">Update your profile</a></h2>
+   <center><a class="button is-link is-inverted" href="{% url 'profile_update' %}">Update your profile</a></center>
+   <center><a class="button is-danger" href="#">Delete Profile</a></center>
+{% endif %}
 {% endblock %}

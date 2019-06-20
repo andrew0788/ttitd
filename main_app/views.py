@@ -52,7 +52,7 @@ def profile_update(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('')
+            return redirect('profile')
         else:
             error_message = 'Invalid credentials -- try again'
     else:
@@ -65,7 +65,7 @@ def profile_update(request):
 
 @login_required
 class ProfileDelete(DeleteView):
-    model = Profile
+    model = User
     success_url = '/'
 
 def substances_index(request):

@@ -65,7 +65,7 @@ def profile_update(request):
 
 def substances_all(request):
   substance = Drug.objects.all()
-  return render(request, 'substances/all.html', {
+  return render(request, 'substances/index.html', {
     'substance': substance
   })
 

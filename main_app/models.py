@@ -23,7 +23,7 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user_key=request.user.id, profile_name=instance.get_username)
+            Profile.objects.create(user_key=instance, profile_name=instance.get_username)
 
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
@@ -65,21 +65,6 @@ class Photo(models.Model):
     def __str__(self):
         return f"Photo for drug_id: at {self.drug_id} @{self.url}"
 
-class TripReportPhoto(models.Model):
-    url = models.CharField(max_length=200)
-    trip_report = models.ForeignKey(Drug, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Photo for trip_id: at {self.trip_report_id} @{self.url}"
-
-class ProfilePhoto(models.Model):
-    url = models.CharField(max_length=200)
-    trip_report = models.ForeignKey(Drug, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Photo for profile: at {self.profile.id} @{self.url}"
-
-
 class Trip_Report(models.Model):
     trip_name = models.CharField(max_length=50)
     METHODS = Choices('ediable', 'smoked', 'oil/lotion', 'other')
@@ -102,3 +87,17 @@ class Report_Comment(models.Model):
     trip_report_key = models.ForeignKey(Trip_Report, on_delete=models.CASCADE)
     user_key = models.ForeignKey(User, on_delete=models.CASCADE)
     text_content = models.TextField(max_length=200)
+
+class TripReportPhoto(models.Model):
+    url = models.CharField(max_length=200)
+    trip_report = models.ForeignKey(Trip_Report, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for trip_id: at {self.trip_report_id} @{self.url}"
+
+class ProfilePhoto(models.Model):
+    url = models.CharField(max_length=200)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for profile: at {self.profile.id} @{self.url}"

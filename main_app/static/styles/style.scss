@@ -1,0 +1,48 @@
+@media only screen and (max-width: 1023px) {
+.mobi_nav {
+    overflow: hidden;
+    height: 32px;
+    width: 32px;
+  }
+
+.mobi_nav_links {
+    display: hidden;
+  }
+
+.navbar-menu {
+    display: hidden;
+    }
+
+}
+
+.mobi_nav {
+    display: hidden;
+}
+
+body {
+    background-color: grey;
+    margin: 0px;
+}
+
+.nav_links {
+    display: hidden;
+  }
+
+.nav_links a {
+    background: slateblue;
+
+  }
+.topnav a {
+    color: slategrey;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+
+.cactus .cactus_mobi {
+    margin: 0px
+  }
+
+.topnav a:hover {
+    color: white
+  }

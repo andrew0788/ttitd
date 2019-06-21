@@ -9,10 +9,10 @@
         </article>
         <div class="tile">
             <article class="tile">
-                <p class="small">Recommended Doese: {{ substance.req_dose }} Do not delete. This is all placeholder.</p>
+                <p class="small">Recommended Doese: {{ substance.req_dose }}</p>
             </article>
             <article class="tile">
-                <p class="small">Views = {{ substance.view_count }}- Do not delete. This is all placeholder.</p>
+                <p class="small">Views = {{ substance.view_count }}</p>
             </article>
         </div>
     </div>
@@ -40,44 +40,13 @@
                         <p>Trip Reports</p>
                     </center>
             </article>
-            <article class="tile is-child ">
-                <center>
-                Lorem Ipsum
-                </center>
-            </article>
-            <article class="tile is-child">
-                <center>
-                    Lorem Ipsum
-                </center>
-            </article>
-            <article class="tile is-child">
-                <center>
-                    Lorem Ipsum
-                </center>
-            </article>
-            <article class="tile is-child">
-                <center>
-                    Lorem Ipsum
-                </center>
-            </article>
-            <article class="tile is-child">
-                <center>
-                    Lorem Ipsum
-                </center>
-            </article>
-            <article class="tile is-child">
-                <center>
-                    Lorem Ipsum
-                </center>
-            </article>
-            <article class="tile is-child">
-                <center>
-                    Lorem Ipsum
-                </center>
-            </article>
-        </div>
-
-</div>
-
+{% for report in trips %}
+  {{ report.trip_name }}
+  {{ report.other_drugs_taken }}
+  {{ report.user_key}}
+  {{ report.text_content }}
+  <a href="{% url 'trip_delete' report.id %}">Delete</a>
+  <br>
+{% endfor %}
 
 {% endblock %}

@@ -83,7 +83,7 @@ def create_trip(request, substance_id):
 
 # class TripCreate(LoginRequiredMixin, CreateView):
 #   model = Trip_Report
-#   fields = ['trip_name', 'text_content', 
+#   fields = ['trip_name', 'text_content',
 #   'date', 'method', 'other_drugs_taken']
 
 #   def form_valid(self, form):
@@ -123,15 +123,24 @@ def substances_index(request):
 
 def substances_detail(request, d_id):
     substance = Drug.objects.get(id=d_id)
-    return render(request, 'substances/detail.html', {'substance': substance})
+    trips = Trip_Report.objects.filter(drug_key_id=d_id)
+    print(trips)
+    return render(request, 'substances/detail.html', {'substance': substance, 'trips': trips})
 
 def trips_all(request):
   return render(request, 'trips/index.html')
 
 # delete this
-def trips_detail(request):
-  return render(request, 'trips/detail.html')
+def trips_detail(request, t_id):
+  trip = Trip_Report.objects.get(id=t_id)
+  return render(request, 'trips/detail.html', {
+    'trip':trip,
+  })
 # *** delete this
+
+class TripDelete(DeleteView):
+    model = Trip_Report
+    success_url = '/'
 
 @login_required
 def add_photo(request, drug_id):

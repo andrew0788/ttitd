@@ -67,14 +67,14 @@ class Photo(models.Model):
 
 class Trip_Report(models.Model):
     trip_name = models.CharField(max_length=50)
-    METHODS = Choices('ediable', 'smoked', 'oil/lotion', 'other')
-    OTHER_DRUGS = Choices('Alcohol', 'Cannabis', 'Mushrooms', 'Payote')
+    METHODS = Choices('edible', 'smoked', 'oil/lotion', 'other')
+    OTHER_DRUGS = Choices('Alcohol', 'Cannabis', 'Mushrooms', 'Peyote')
     user_key = models.ForeignKey(User, on_delete=models.CASCADE)
     drug_key = models.ForeignKey(Drug, on_delete=models.CASCADE)
     text_content = models.TextField(max_length=250)
     date = models.DateField()
-    method = models.CharField(max_length=1, choices=METHODS)
-    other_drugs_taken = models.CharField(max_length= 4, choices=OTHER_DRUGS)
+    method = models.CharField(max_length=250, choices=METHODS)
+    other_drugs_taken = models.CharField(max_length=250, choices=OTHER_DRUGS)
     effects = models.ManyToManyField(User_Drug_Effects)
 
 class Report_Cat(models.Model):

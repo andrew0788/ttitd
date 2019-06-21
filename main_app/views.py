@@ -120,8 +120,11 @@ def trips_all(request):
   return render(request, 'trips/index.html')
 
 # delete this
-def trips_detail(request):
-  return render(request, 'trips/detail.html')
+def trips_detail(request, t_id):
+  trip = Trip_Report.objects.get(id=t_id)
+  return render(request, 'trips/detail.html', {
+    'trip':trip,
+  })
 # *** delete this
 
 @login_required

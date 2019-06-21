@@ -15,5 +15,6 @@ urlpatterns = [
     # path('trips/<int:d_id>/create', views.TripCreate.as_view(
     #     template_name='trips/create.html'), name='trips_create'),
     path('trips/<int:substance_id>/create', views.create_trip, name='trips_create'),
+    path('trips/<int:pk>/delete', views.TripDelete.as_view(), name='trip_delete'),
     path('subtances/detail', views.substances_detail, name='substances_detail'),
 ]

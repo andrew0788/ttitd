@@ -25,7 +25,6 @@ def home(request):
 def profile(request):
     profile = request.user.profile
     user_id = request.user.id
-
     return render(request, 'profile/detail.html', {
       'user_id': user_id,
       'p': profile,
@@ -41,7 +40,17 @@ def signup(request):
     if user_form.is_valid():
       user = user_form.save()
       login(request, user)
-      return redirect('/') #Update to route to the Profile Update view
+      profile = request.user.profile
+      user_id = request.user.id
+      new_user = True
+      user_form = UserForm(instance=request.user)
+      profile_form = ProfileForm(instance=request.user.profile)
+      return render(request, 'profile/detail.html', {
+          'user_id': user_id,
+          'p': profile,
+          'new_user': new_user,
+          'profile_form': profile_form
+      })
     else:
       error_message = 'Invalid credentials -- try again'
   else:

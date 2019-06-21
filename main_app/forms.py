@@ -23,6 +23,9 @@ class ProfileForm(forms.ModelForm):
             'ghost_key'
         )
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 class TripForm(forms.ModelForm):
     class Meta:
         model = Trip_Report
@@ -33,6 +36,9 @@ class TripForm(forms.ModelForm):
             'method',
             'other_drugs_taken',
         )
+        widgets = {
+            'date': DateInput(),
+        }
 
 
 class CommentForm(forms.ModelForm):

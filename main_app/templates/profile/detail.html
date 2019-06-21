@@ -1,49 +1,70 @@
 {% extends 'base.html' %}
+{% load bulma_tags %}
 {% block content %}
-
-<div class="card">
-    <div class="card-content">
-        <div class="media">
-            <div class="media-left">
-                <figure class="image is-48x48">
-                    <img src="https://image-cdn.neatoshop.com/styleimg/86770/none/black/default/417000-20;1556905905t.jpg">
-                </figure>
+    {% if new_user == True %}
+        <div class="fadeMe">
+            <br><br><br>
+            <div class="card overlay_ele">
+                <div class="card-content overlay_ele">
+                    <div class="media-content">
+                        <center>
+                            <h1 class="title is-1 overlay_ele">Welcome to the desert!</h1>
+                            <br><br><br>
+            <center><a class="button is-link is-inverted" href="{% url 'profile_update' %}">Update your profile</a></center>
+                        </center>
+                    </div>
+                </div>
             </div>
-            <div class="media-content">
-                <p class="title is-4">{{ user.profile.profile_name }} <a class="button is-link is-small is-rounded" href="{{ user.profile.social_link }}">Check out my social media</a></p>
-                <p class="subtitle is-6">{{ user.profile.location }}</p>
+    {% endif %}
+    </div>
+    <br>
+    <br>
+    <div class="card is-round">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-48x48">
+                        <img src="https://image-cdn.neatoshop.com/styleimg/86770/none/black/default/417000-20;1556905905t.jpg">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <p class="title is-4">{{ user.profile.profile_name }} <a class="button is-link is-small is-rounded" href="{{ user.profile.social_link }}">Check out my social media</a></p>
+                    <p class="subtitle is-6">{{ user.profile.location }}</p>
+                </div>
             </div>
-        </div>
-        <div class="content">
-            {{ user.profile.bio }}
+            <div class="content">
+                {{ user.profile.bio }}
+            </div>
         </div>
     </div>
-</div>
-<br>
-<br>
-{% if p.user_key == request.user %}
-    <nav class="level">
-        <div class="level-item has-text-centered">
-            <div>
-                <p class="heading">Age</p>
-                <p class="title">{{ user.profile.age }}</p>
-            </div>
-        </div>
-        <div class="level-item has-text-centered">
-            <div>
-                <p class="heading">Gender</p>
-                <p class="title">{{ user.profile.gender }}</p>
-            </div>
-        </div>
-        <div class="level-item has-text-centered">
-            <div>
-                <p class="heading">Weight</p>
-                <p class="title">{{ user.profile.weight }}</p>
-            </div>
-        </div>
-    </nav>
     <br>
     <br>
-   <center><a class="button is-link is-inverted" href="{% url 'profile_update' %}">Update your profile</a></center>
-{% endif %}
+    {% if p.user_key == request.user %}
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Age</p>
+                    <p class="title">{{ user.profile.age }}</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Gender</p>
+                    <p class="title">{{ user.profile.gender }}</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Weight</p>
+                    <p class="title">{{ user.profile.weight }}</p>
+                </div>
+            </div>
+        </nav>
+        <br>
+        <br>
+        <center><a class="button is-link is-inverted" href="{% url 'profile_update' %}">Update your profile</a></center>
+        <br>
+        <br>
+    {% endif %}
+
 {% endblock %}

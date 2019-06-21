@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
+{% load bulma_tags %}
+
 {% block content %}
 
-<h1> Profile update </h1>
+<h1 class='title'> Profile update </h1>
 <form method="post" action="{% url 'profile_update' %}">
     {% csrf_token %}
-    {{ profile_form.as_p }}
+    {{ profile_form|bulma}}
     <input type="submit" class="btn" value="Update Profile">
 </form>
 

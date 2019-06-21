@@ -1,16 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>Substances</h1>
-{% for d in substance %}
-    Substance: {{ d.name }}
-    <br>
-    <a href="{% url 'substances_detail' d.id %}">description:</a> {{ d.description }}
-    <br>
-    Recommended Dosage: {{ d.req_dose }}
-    <br>
-    Views: {{ d.view_count }}
-    <br>
-{% endfor %}
+        {% for d in substance %}
+        <section class="section>"
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="title">Substance: {{ d.name }}</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Recommended Dosage: {{ d.req_dose }}</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Recommended Dosage: {{ d.req_dose }}</p>
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                                <p class="heading">Views: {{ d.view_count }}</p>
+                            </div>
+                    </div>
+                </div>
+                </nav>
+                <div class="card">
+                    <div class="card-content">
+                    <p class="heading"><a href="{% url 'substances_detail' d.id %}">description:</a> {{ d.description }}</p>
+                        <p class="subtitle">
+                        </p>
+                    </div>
+            </section>
+                <br><br>
+                
+                
+        {% endfor %}
+        
+    </section>
 
 {% endblock %}

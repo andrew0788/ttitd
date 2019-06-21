@@ -43,6 +43,10 @@
 {% for report in trips %}
   {{ report.trip_name }}
   {{ report.other_drugs_taken }}
+  {{ report.user_key}}
+  {{ report.text_content }}
+  <a href="{% url 'trip_delete' report.id %}">Delete</a>
+  <br>
 {% endfor %}
 
 {% endblock %}

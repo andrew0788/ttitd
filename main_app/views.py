@@ -126,6 +126,10 @@ def trips_detail(request):
   return render(request, 'trips/detail.html')
 # *** delete this
 
+class TripDelete(DeleteView):
+    model = Trip_Report
+    success_url = '/'
+
 @login_required
 def add_photo(request, drug_id):
   photo_file = request.FILES.get('photo-file', None)

@@ -21,7 +21,7 @@
 </div>
 <br>
 <br>
-<!-- {% if user.profile.user_key == request.user %} -->
+{% if p.user_key == request.user %}
     <nav class="level">
         <div class="level-item has-text-centered">
             <div>
@@ -45,6 +45,5 @@
     <br>
     <br>
    <center><a class="button is-link is-inverted" href="{% url 'profile_update' %}">Update your profile</a></center>
-   <!-- <center><a class="button is-danger" href="{% url 'profile_delete' user.profile.id %}">Delete Profile</a></center> -->
 {% endif %}
 {% endblock %}

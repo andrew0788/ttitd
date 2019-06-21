@@ -24,9 +24,11 @@ amet mattis vulputate. Sit amet porttitor eget dolor morbi non. Commodo sed eges
 scelerisque eleifend donec. Volutpat ac tincidunt vitae semper quis lectus nulla. Et netus et malesuada fames ac turpis.
 Vitae suscipit tellus mauris a diam maecenas sed enim. Viverra nibh cras pulvinar mattis nunc sed blandit.
 </p>
-
+{% if trip.user_key == request.user %}
+<center><a class="button is-link is-inverted" href="#">Update your trip</a></center>
+<center><a class="button is-link is-inverted" href="#">Delete your trip</a></center>
 <br>
-
+{% endif %}
 <div class="tile is-ancestor">
     <div class="tile is-vertical">
         <center>

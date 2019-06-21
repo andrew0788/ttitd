@@ -8,13 +8,13 @@ from django.dispatch import receiver
 # Create your models here.
 
 class Profile(models.Model):
-    user_key = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_name = models.CharField(max_length=100)
-    location = models.CharField(max_length=200)
-    gender = models.CharField(max_length=15)
+    user_key = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
+    profile_name = models.CharField(max_length=100, default="New User")
+    location = models.CharField(max_length=200, blank=True)
+    gender = models.CharField(max_length=15, blank=True)
     age = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)
-    bio = models.TextField(max_length=250)
+    bio = models.TextField(max_length=250, blank=True)
     social_link = models.URLField('website', blank=True)
     exp = models.IntegerField(default=0)
     ghost_key = models.BooleanField(default=False)
@@ -23,7 +23,7 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user_key=instance, profile_name=instance.get_username)
+            Profile.objects.create(user_key=instance)
 
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
@@ -45,7 +45,6 @@ class Drug(models.Model):
     def __str__(self):
         return self.name
 
-#class Experince(models.Model):
 
 class Effect(models.Model):
     name = models.CharField(max_length=50)
@@ -96,7 +95,7 @@ class TripReportPhoto(models.Model):
         return f"Photo for trip_id: at {self.trip_report_id} @{self.url}"
 
 class ProfilePhoto(models.Model):
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=200, default='https://www.fillmurray.com/200/300')
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 
     def __str__(self):

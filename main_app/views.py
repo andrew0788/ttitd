@@ -39,7 +39,7 @@ def signup(request):
   if request.method == 'POST':
     user_form = UserCreationForm(request.POST)
     if user_form.is_valid():
-      user_form.save()
+      user = user_form.save()
       login(request, user)
       return redirect('/') #Update to route to the Profile Update view
     else:
@@ -90,7 +90,7 @@ def profile_update(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('/')
+            return redirect('profile')
         else:
             error_message = 'Invalid credentials -- try again'
     else:
@@ -100,6 +100,11 @@ def profile_update(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+@login_required
+class ProfileDelete(DeleteView):
+    model = User
+    success_url = '/'
 
 def substances_index(request):
   substance = Drug.objects.all()

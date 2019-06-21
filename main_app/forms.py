@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib import auth
+
 from .models import Profile, User, Trip_Report
 
 class UserForm(forms.ModelForm):
@@ -21,7 +22,6 @@ class ProfileForm(forms.ModelForm):
             'social_link',
             'ghost_key'
         )
-
 
 class TripForm(forms.ModelForm):
     class Meta:
@@ -46,3 +46,4 @@ class CommentForm(forms.ModelForm):
             'other_drugs_taken',
             'effects'
         )
+

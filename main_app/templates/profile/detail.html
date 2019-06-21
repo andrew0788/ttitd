@@ -10,41 +10,41 @@
                 </figure>
             </div>
             <div class="media-content">
-                <p class="title is-4">{{ p.profile_name }} <a class="button is-link is-small is-rounded" href="{{ p.social_link }}">Check out my social media</a></p>
-                <p class="subtitle is-6">{{ p.location }}</p>
+                <p class="title is-4">{{ user.profile.profile_name }} <a class="button is-link is-small is-rounded" href="{{ user.profile.social_link }}">Check out my social media</a></p>
+                <p class="subtitle is-6">{{ user.profile.location }}</p>
             </div>
         </div>
         <div class="content">
-            {{ p.bio }}
+            {{ user.profile.bio }}
         </div>
     </div>
 </div>
 <br>
 <br>
-{% if p.user_key == request.user %}
+<!-- {% if user.profile.user_key == request.user %} -->
     <nav class="level">
         <div class="level-item has-text-centered">
             <div>
                 <p class="heading">Age</p>
-                <p class="title">{{ p.age }}</p>
+                <p class="title">{{ user.profile.age }}</p>
             </div>
         </div>
         <div class="level-item has-text-centered">
             <div>
                 <p class="heading">Gender</p>
-                <p class="title">{{ p.gender }}</p>
+                <p class="title">{{ user.profile.gender }}</p>
             </div>
         </div>
         <div class="level-item has-text-centered">
             <div>
                 <p class="heading">Weight</p>
-                <p class="title">{{ p.weight }}</p>
+                <p class="title">{{ user.profile.weight }}</p>
             </div>
         </div>
     </nav>
     <br>
     <br>
    <center><a class="button is-link is-inverted" href="{% url 'profile_update' %}">Update your profile</a></center>
-   <center><a class="button is-danger" href="#">Delete Profile</a></center>
+   <!-- <center><a class="button is-danger" href="{% url 'profile_delete' user.profile.id %}">Delete Profile</a></center> -->
 {% endif %}
 {% endblock %}

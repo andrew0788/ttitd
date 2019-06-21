@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import ProfileForm, UserForm
 from django.contrib.auth import login
+from django import forms
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
@@ -10,7 +10,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from django.db import transaction
 from django.db.models.signals import post_save
-from .models import Profile, Drug, Effect, User_Drug_Effects, User
+import uuid
+import boto3
+from .forms import ProfileForm, UserForm, TripForm
+from .models import Profile, Drug, Effect, User_Drug_Effects, User, Trip_Report
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
@@ -46,6 +49,37 @@ def signup(request):
   context = {'user_form': user_form}
   return render(request, 'registration/signup.html', context)
 
+def create_trip(request, substance_id):
+  substance = Drug.objects.get(id=substance_id)
+  user_id = request.user
+  if request.method == 'POST':
+    trip_form = TripForm(request.POST)
+    if trip_form.is_valid():
+      trip_form.instance.drug_key = substance
+      trip_form.instance.user_key = user_id
+      trip_form.save()
+      # Update to route to the Profile Update view
+      return redirect(f"/substances/{substance_id}/detail")
+    else:
+        error_message = 'Invalid credentials -- try again'
+  else:
+    trip_form = TripForm()
+  return render(request, 'trips/create.html', {
+    'trip_form': trip_form,
+    'substance': substance_id
+  })
+
+
+
+
+# class TripCreate(LoginRequiredMixin, CreateView):
+#   model = Trip_Report
+#   fields = ['trip_name', 'text_content', 
+#   'date', 'method', 'other_drugs_taken']
+
+#   def form_valid(self, form):
+#     form.instance.drug_key = self.kwargs['id']
+#     return super(TripCreate, self).form_valid(form)
 
 @login_required
 @transaction.atomic

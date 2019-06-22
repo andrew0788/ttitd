@@ -30,6 +30,8 @@ ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = [
     'main_app',
     'sass_processor',
+    'bulma',
+    'django-simple-bulma',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -40,13 +40,38 @@
                         <p>Trip Reports</p>
                     </center>
             </article>
-{% for report in trips %}
-  {{ report.trip_name }}
-  {{ report.other_drugs_taken }}
-  {{ report.user_key}}
-  {{ report.text_content }}
-  <a href="{% url 'trip_delete' report.id %}">Delete</a>
   <br>
+{% for report in trips %}
+
+<div class="tile is-ancestor">
+    <div class="tile is-4 is-parent">
+        <div class="tile is-child">
+          <center>
+            <p class="title">{{ report.trip_name }}</p>
+            <figure class="image">
+                <img src="https://www.sciencenews.org/sites/default/files/2018/11/main/articles/110718_LS_marijuana-adolescent-brain_feat.jpg" class="is-rounded" >
+            </figure>
+            </center>
+        </div>
+    </div>
+    <div class="tile is-parent is-vertical">
+        <div class="tile is-child box">
+            <p>What drug is this for: <a href="#">{{ report.drug_key }}</a></p>
+            <p>When: {{ report.date }}</p>
+            <a href=#><p>{{ report.user_key }}</p></a>
+            <p>Method? {{ report.method }}</p>
+            <p>Mixed with? {{ report.other_drugs_taken }}</p>
+            <p>{{ report.effects.effects }}</p>
+        </div>
+        <div class="tile is-child box">
+            <p class="title">text_content</p>
+            <p>{{ report.text_content }}<a href='{% url 'report_detail' report.id %}'>Read the rest</a></p>
+                {% if report.user_key == request.user_key %}
+                <a href="{% url 'trip_delete' report.id %}">Delete</a>
+                {% endif %}
+        </div>
+    </div>
+</div>
 {% endfor %}
 
 {% endblock %}

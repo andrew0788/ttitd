@@ -7,6 +7,7 @@ urlpatterns = [
     path('substances/<int:d_id>/detail/', views.substances_detail, name='substances_detail'),
     path('trips/all', views.trips_all, name='trips_all'),
     path('trips/index', views.trips_all, name='trips_all'),
+    path('trips/<int:report_id>/detail/', views.report_detail, name='report_detail'),
     path('profile/detail', views.profile, name='profile'),
     path('profile/update/', views.profile_update, name='profile_update'),
     # path('profile/<int:pk>/delete/', views.ProfileDelete.as_view(), name='profile_delete'),

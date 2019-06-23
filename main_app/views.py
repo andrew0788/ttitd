@@ -130,13 +130,12 @@ def substances_detail(request, d_id):
 def trips_all(request):
   return render(request, 'trips/index.html')
 
-# delete this
-def trips_detail(request, t_id):
-  trip = Trip_Report.objects.get(id=t_id)
+
+def report_detail(request, report_id):
+  report = Trip_Report.objects.get(id=report_id)
   return render(request, 'trips/detail.html', {
-    'trip':trip,
+    'report':report,
   })
-# *** delete this
 
 class TripDelete(DeleteView):
     model = Trip_Report

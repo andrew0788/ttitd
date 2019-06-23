@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = [
     'main_app',
     'sass_processor',
+    'bulma',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,6 +121,7 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
+    'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
 STATIC_URL = '/static/'

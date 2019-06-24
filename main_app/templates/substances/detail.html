@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<a href="{% url 'trips_create' substance.id %}">Create a trip</a>
+<a href="{% url 'trip_create' substance.id %}">Create a trip</a>
 <br>
 <br>
 <br>
@@ -56,7 +56,6 @@
     </div>
     <div class="tile is-parent is-vertical">
         <div class="tile is-child box">
-            <p>What drug is this for: <a href="#">{{ report.drug_key }}</a></p>
             <p>When: {{ report.date }}</p>
             <a href=#><p>{{ report.user_key }}</p></a>
             <p>Method? {{ report.method }}</p>

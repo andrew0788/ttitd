@@ -28,7 +28,7 @@ def home(request):
 def profile(request):
     profile = request.user.profile
     user_id = request.user.id
-    avatar = ProfilePhoto.objects.get(profile=profile)
+    # avatar = ProfilePhoto.objects.get(profile=profile)
     return render(request, 'profile/detail.html', {
       'user_id': user_id,
       'p': profile,

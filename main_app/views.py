@@ -14,7 +14,7 @@ from django.db.models.signals import post_save
 import uuid
 import boto3
 from .forms import ProfileForm, UserForm, TripForm
-from .models import Profile, Drug, Effect, User_Drug_Effects, User, Trip_Report
+from .models import Profile, Drug, Effect, User_Drug_Effects, User, Trip_Report, ProfilePhoto
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
@@ -28,6 +28,7 @@ def home(request):
 def profile(request):
     profile = request.user.profile
     user_id = request.user.id
+    avatar = ProfilePhoto.objects.get(profile=profile)
     return render(request, 'profile/detail.html', {
       'user_id': user_id,
       'p': profile,
@@ -96,8 +97,8 @@ def substances_index(request):
 def substances_detail(request, d_id):
     substance = Drug.objects.get(id=d_id)
     trips = Trip_Report.objects.filter(drug_key_id=d_id)
-    print(trips)
-    return render(request, 'substances/detail.html', {'substance': substance, 'trips': trips})
+    user_drug_effects = User_Drug_Effects.objects.filter(drug=d_id)
+    return render(request, 'substances/detail.html', {'substance': substance, 'trips': trips, 'user_drug_effects': user_drug_effects})
 
 
 def trips_all(request):

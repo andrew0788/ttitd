@@ -105,6 +105,10 @@ def trips_all(request):
   return render(request, 'trips/index.html')
 
 
+def experiences(request):
+    return render(request, 'trips/experiences.html')
+
+
 @login_required
 def trips_create(request, substance_id):
   substance = Drug.objects.get(id=substance_id)

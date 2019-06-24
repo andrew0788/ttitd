@@ -3,13 +3,25 @@ const mobi_nav = document.querySelector('.mobi_nav_links');
 const modal_tog = document.querySelector('.moda_but');
 const up_mod = document.querySelector('.vis_blo');
 const moda_but = document.querySelector('.moda_but');
-const y_vid = document.querySelector('.back-vid')
+const navBar = document.querySelector('.navbar-menu')
+const y_vid = document.querySelector('.back-vid');
+const subtitleOpen = document.querySelector('.subtitle-container');
+const skyHigh = document.getElementById('sky-high');
+const startIt = document.getElementById('startup');
+const subtitleSky = document.getElementById('subtitle-sky');
+const clubKid = document.getElementById('club-kid');
+const subtitleClub = document.getElementById('subtitle-club');
+const artTrip = document.getElementById('art-trip');
+const subtitleArt = document.getElementById('subtitle-art');
+const subtitleEnd = document.getElementById('subtitle-end');
+const openArea = document.querySelector('.disp-none')
+
+var openTimeVid
 
 document.querySelector('.cactus_mobi').addEventListener('click', mobi_nav_toggle);
 document.querySelector('.cactus').addEventListener('click', nav_toggle);
-document.querySelector('.moda_but').addEventListener('click', display_mod);
-document.querySelector('.close_moda').addEventListener('click', display_mod);
-document.querySelector('.hero').addEventListener('hover', playVid);
+document.getElementById('startup').addEventListener('mouseenter', showVid, false);
+
 
 function mobi_nav_toggle() {
     if (mobi_nav.style.display === "block") {
@@ -30,22 +42,69 @@ function nav_toggle() {
     }
 }
 
-
-function display_mod() {
-    if (up_mod.style.visibility === "hidden") {
-        up_mod.visibility = "inherit";
-        moda_but.classList.add("is-loading")
-        up_mod.style.display = "block";
-        y_vid.playVideo()
-    }
-    else {
-        moda_but.classList.remove("is-loading")
-        up_mod.style.visibility = "hidden";
-        up_mod.style.display = "none";
-        y_vid.playVideo()
-    }
+function showVid() {
+    navBar.style.display = "none";
+    skyHigh.style.display = "block";
+    startIt.style.visibility = "hidden";
+    subtitleOpen.style.display = "none";
+    openTimeVid = setTimeout(showSkySub, 3000);
 }
 
-function playVid() {
-    y_vid.target.playVideo()
+function showSkySub() {
+    subtitleSky.style.display = "block"
+    openTimeVid = setTimeout(showClub, 5000);
 }
+
+function showClub() {
+    subtitleSky.style.display = "none"
+    skyHigh.style.display = "none"
+    clubKid.style.display = "block"
+    subtitleClub.style.display = "block"
+    openTimeVid = setTimeout(showArt, 4000);
+}
+
+function showArt() {
+    clubKid.style.display = "none"
+    subtitleClub.style.display = "none"
+    artTrip.style.display = "block"
+    subtitleArt.style.display = "block"
+    openTimeVid = setTimeout(showEnd, 5000);
+}
+
+function showEnd() {
+    subtitleArt.style.display = "none"
+    subtitleEnd.style.display = "block"
+    openTimeVid = setTimeout(showAll, 3000);
+}
+
+function showAll() {
+    navBar.style.display = "block";
+    artTrip.style.display = "none";
+    subtitleEnd.style.display = "none";
+    openArea.style.display = "block";
+}
+
+
+
+// lazy load
+document.addEventListener("DOMContentLoaded", function () {
+    var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));;
+
+    if ("IntersectionObserver" in window && "IntersectionObserverEntry" in window && "intersectionRatio" in window.IntersectionObserverEntry.prototype) {
+        let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    let lazyImage = entry.target;
+                    lazyImage.src = lazyImage.dataset.src;
+                    lazyImage.srcset = lazyImage.dataset.srcset;
+                    lazyImage.classList.remove("lazy");
+                    lazyImageObserver.unobserve(lazyImage);
+                }
+            });
+        });
+
+        lazyImages.forEach(function (lazyImage) {
+            lazyImageObserver.observe(lazyImage);
+        });
+    }
+});

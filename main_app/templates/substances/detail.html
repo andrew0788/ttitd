@@ -29,7 +29,9 @@
 <p>{{ substance.description }}</p>
     </article>
     <article class="tile is-child box">
-<p>{{ substance.effects }}</p>
+{% for ude in user_drug_effects %}
+  <p>{{ ude.adj }}</p>
+{% endfor  %}
     </article>
 </div>
 

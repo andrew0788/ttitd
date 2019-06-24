@@ -14,7 +14,7 @@ from django.db.models.signals import post_save
 import uuid
 import boto3
 from .forms import ProfileForm, UserForm, TripForm
-from .models import Profile, Drug, Effect, User_Drug_Effects, User, Trip_Report #ProfilePhoto
+from .models import Profile, Drug, Effect, User_Drug_Effects, User, Trip_Report, ProfilePhoto
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
@@ -28,7 +28,7 @@ def home(request):
 def profile(request):
     profile = request.user.profile
     user_id = request.user.id
-    #avatar = ProfilePhoto.objects.get(profile=profile)
+    avatar = ProfilePhoto.objects.get(profile=profile)
     return render(request, 'profile/detail.html', {
       'user_id': user_id,
       'p': profile,
@@ -141,6 +141,7 @@ def report_detail(request, report_id):
 @method_decorator(login_required, name='dispatch')
 class TripUpdate(UpdateView):
     model = Trip_Report
+    success_url = '/'
     fields = ['trip_name', 'method', 'text_content', 'effects', 'other_drugs_taken']
 
 

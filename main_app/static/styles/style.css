@@ -86,7 +86,8 @@ body {
   background: #4a4a4a;
   margin: 0px;
   color: whitesmoke;
-  font-family: oxygen; }
+  font-family: oxygen;
+  font-size: 16px; }
 
 .title, .label {
   color: white; }

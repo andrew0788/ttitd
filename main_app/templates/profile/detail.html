@@ -23,12 +23,11 @@
         <div class="card-content">
             <div class="media">
                 <div class="media-left">
-                    <figure class="image is-48x48">
-                        <img src="https://image-cdn.neatoshop.com/styleimg/86770/none/black/default/417000-20;1556905905t.jpg">
-                    </figure>
+
                 </div>
                 <div class="media-content">
-                    <p class="title is-4">{{ user.profile.profile_name }} <a class="button is-link is-small is-rounded" href="{{ user.profile.social_link }}">Check out my social media</a></p>
+                    <p class="title" style="color:black">{{ user.profile }}</p>
+                    <p class="title is-4"><a class="button is-link is-small is-rounded" href="{{ user.profile.social_link }}">Check out my social media</a></p>
                     <p class="subtitle is-6">{{ user.profile.location }}</p>
                 </div>
             </div>
@@ -66,4 +65,5 @@
         <br>
         <br>
     {% endif %}
+
 {% endblock %}

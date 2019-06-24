@@ -6,15 +6,94 @@
   .mobi_nav_links {
     display: none; }
   .navbar-menu {
-    display: none; } }
+    display: none; }
+  div.fadeMe {
+    opacity: 0.92;
+    background: #000;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    position: fixed; }
+  .overlay_ele {
+    opacity: 1.0;
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    background: black; } }
 
-.mobi_nav_links {
+.hero-body {
+  opacity: .8;
+  background-size: cover;
+  background-position: center;
+  width: 100wh;
+  height: 100vh; }
+
+.back-vid {
+  position: absolute;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -10;
+  opacity: 1 !important; }
+
+.hero-head {
+  background: black;
+  opacity: 1 !important; }
+
+.black-box {
+  background: black;
+  opacity: 1 !important; }
+
+.i-black {
+  color: black;
+  opacity: 1 !important; }
+
+.transparent_box {
+  background: transparent; }
+
+.hero-foot {
+  z-index: 100; }
+
+div.fadeMe {
+  opacity: .92;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  position: fixed; }
+
+.card.overlay_ele {
+  opacity: .85;
+  z-index: 20;
+  background: cornflowerblue; }
+
+.vis_blo {
+  display: block;
+  visibility: hidden; }
+
+.mobi_nav_links, .mobi_nav {
   display: none; }
 
 body {
-  background-color: grey;
+  background: #4a4a4a;
   margin: 0px;
+  color: whitesmoke;
+  font-family: oxygen;
   font-size: 16px; }
+
+.title, .label {
+  color: white; }
+
+.mobi_back {
+  background: grey-dark; }
 
 .nav_links {
   display: none; }
@@ -30,8 +109,5 @@ body {
 
 .cactus .cactus_mobi {
   margin: 0px; }
-
-.topnav a:hover {
-  color: white; }
 
 /*# sourceMappingURL=style.css.map */

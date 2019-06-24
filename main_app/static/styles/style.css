@@ -144,7 +144,8 @@ html {
 .sticky-signup {
   position: absolute;
   position: sticky;
-  top: 0; }
+  top: 0;
+  z-index: 2; }
 
 .title-container {
   position: absolute;
@@ -181,6 +182,12 @@ html {
 
 .sub-title-vid {
   padding-left: 20%; }
+
+.sticky-form {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: none; }
 
 .container-back-overlay {
   background: rgba(0, 0, 0, 0.4);
@@ -353,7 +360,7 @@ html {
     opacity: 1; }
   100% {
     display: block;
-    opacity: .5; } }
+    opacity: .0; } }
 
 @-moz-keyframes fadeInAndOut {
   0% {

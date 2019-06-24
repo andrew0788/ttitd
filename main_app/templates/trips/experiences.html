@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+    {% block content %}
+
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                <span class="icon has-text-light is-large">
+                    <i class="fas fa-fire"></i>
+                </span>
+                <p class="heading">At The Park</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <span class="icon has-text-light is-large">
+                        <i class="fas fa-music"></i>
+                    </span>
+                    <p class="heading">At A Concert</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <span class="icon has-text-light is-large">
+                        <i class="fas fa-bed"></i>
+                    </span>
+                    <p class="heading">At Home</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <span class="icon has-text-light is-large">
+                        <i class="fas fa-clinic-medical"></i>
+                    </span>
+                    <p class="heading">Medicinal</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <span class="icon has-text-light is-large">
+                        <i class="far fa-building"></i>
+                    </span>
+                    <p class="heading">At Work</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <span class="icon has-text-light is-large">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                    <p class="heading">Other</p>
+                </div>
+            </div>
+        </nav>
+
+        <div class="tile is-ancestor">
+            <div class="tile is-6">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title is-4">
+                            trip_name
+                        </p>
+                        <p class="subtitle is-6">
+                            drug_name
+                        </p>
+                        <p class="subtitle is-6">
+                            Date
+                        </p>
+                        <p class="subtitle is-6">
+                            user_profile
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <p class="subtitle is-6">
+                        method, effects, other_drugs_taken 
+                    </p>
+                    <p class="subtitle is-6">
+                        text_content
+                    </p>
+                </div>
+                <footer class="card-footer">
+                    <p class="card-footer-item">
+                        <span>
+                            View<a href="#"> More (Trip Details)</a>
+                        </span>
+                    </p>
+                    <p class="card-footer-item">
+                        <span>
+                            <a href="#">Edit</a>
+                        </span>
+                    </p>
+                    <p class="card-footer-item">
+                        <span>
+                            <a href="#">Delete</a>
+                        </span>
+                    </p>
+                </footer>
+            </div>
+        </div>
+
+
+    {% endblock %}

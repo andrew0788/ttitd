@@ -15,7 +15,8 @@ const artTrip = document.getElementById('art-trip');
 const subtitleArt = document.getElementById('subtitle-art');
 const subtitleEnd = document.getElementById('subtitle-end');
 const openArea = document.querySelector('.disp-none');
-const stickySignup = document.querySelectorAll('div.sticky-form');
+const stickySignup = document.querySelector('div.sticky-form');
+const openerTitles = document.getElementById('titleCactus');
 var openTimeVid
 
 document.querySelector('.sticky-signup').addEventListener('click', showSignForm);
@@ -24,17 +25,15 @@ document.querySelector('.cactus').addEventListener('click', nav_toggle);
 document.getElementById('startup').addEventListener('mouseenter', showVid, false);
 
 function showSignForm() {
-    for (var i = 0; i < stickySignup.length; i++) {
-        stickySignup[i].addEventListener('click', function() {
             if (stickySignup.style.display === "block") {
                 stickySignup.style.display = "none";
+                openerTitles.style.display = "none";
             }
             else {
                 stickySignup.style.display = "block";
+                
             }
-        });
-        }
-    };
+        };
 
 function mobi_nav_toggle() {
     if (mobi_nav.style.display === "block") {

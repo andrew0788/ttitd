@@ -41,9 +41,6 @@
     {% else %}
     <div class="disp-none">
     {% endif %}
-    <div class="button is-large sticky-signup is-outlined is-info">
-        Sign up
-    </div>
     <div class="sticky-form">
         <form method="post" action="{% url 'signup' %}">
             {% csrf_token %}
@@ -67,7 +64,7 @@
                 </video>
             <div class="hero-head flex-column transparent-back">
                 <div class="has-text-centered is-fullwidth">
-                    <div class="title-container has-text-right title-padding">
+                    <div id="titleCactus" class="title-container has-text-right title-padding">
                         That Time in the Desert
                     </div>
                     <div class="title-container has-text-right container-back-overlay">

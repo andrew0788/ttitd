@@ -237,8 +237,9 @@ html {
 .sticky-form {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 20;
   display: none;
+  background: black;
 }
 
 .container-back-overlay {

@@ -141,6 +141,7 @@ def report_detail(request, report_id):
 @method_decorator(login_required, name='dispatch')
 class TripUpdate(UpdateView):
     model = Trip_Report
+    success_url = '/'
     fields = ['trip_name', 'method', 'text_content', 'effects', 'other_drugs_taken']
 
 

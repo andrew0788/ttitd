@@ -23,8 +23,8 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user_key=instance)
-
+            user_profile = Profile.objects.create(user_key=instance)
+            ProfilePhoto.objects.create(profile= user_profile)
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()

@@ -14,14 +14,27 @@ const subtitleClub = document.getElementById('subtitle-club');
 const artTrip = document.getElementById('art-trip');
 const subtitleArt = document.getElementById('subtitle-art');
 const subtitleEnd = document.getElementById('subtitle-end');
-const openArea = document.querySelector('.disp-none')
-
+const openArea = document.querySelector('.disp-none');
+const stickySignup = document.querySelectorAll('div.sticky-form');
 var openTimeVid
 
+document.querySelector('.sticky-signup').addEventListener('click', showSignForm);
 document.querySelector('.cactus_mobi').addEventListener('click', mobi_nav_toggle);
 document.querySelector('.cactus').addEventListener('click', nav_toggle);
 document.getElementById('startup').addEventListener('mouseenter', showVid, false);
 
+function showSignForm() {
+    for (var i = 0; i < stickySignup.length; i++) {
+        stickySignup[i].addEventListener('click', function() {
+            if (stickySignup.style.display === "block") {
+                stickySignup.style.display = "none";
+            }
+            else {
+                stickySignup.style.display = "block";
+            }
+        });
+        }
+    };
 
 function mobi_nav_toggle() {
     if (mobi_nav.style.display === "block") {
@@ -68,7 +81,7 @@ function showArt() {
     subtitleClub.style.display = "none"
     artTrip.style.display = "block"
     subtitleArt.style.display = "block"
-    openTimeVid = setTimeout(showEnd, 5000);
+    openTimeVid = setTimeout(showEnd, 4000);
 }
 
 function showEnd() {
@@ -90,7 +103,8 @@ function showAll() {
 document.addEventListener("DOMContentLoaded", function () {
     var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));;
 
-    if ("IntersectionObserver" in window && "IntersectionObserverEntry" in window && "intersectionRatio" in window.IntersectionObserverEntry.prototype) {
+    if ("IntersectionObserver" in window && "IntersectionObserverEntry" in window && 
+    "intersectionRatio" in window.IntersectionObserverEntry.prototype) {
         let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
@@ -107,4 +121,4 @@ document.addEventListener("DOMContentLoaded", function () {
             lazyImageObserver.observe(lazyImage);
         });
     }
-});
+})

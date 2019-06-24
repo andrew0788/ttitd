@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bulma_tags %}
 {% block content %}
 
     {% if user.is_authenticated %}
@@ -40,9 +41,26 @@
     {% else %}
     <div class="disp-none">
     {% endif %}
+    <div class="button is-large sticky-signup is-outlined is-info">
+        Sign up
+    </div>
+    <div class="sticky-form">
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {{ user_form|bulma }}
+            <input type="submit" class="btn" value="signup">
+        </form>
+    </div>
         <section class="hero is-fullwidth primary-cont-flex">
             <div class="button is-large sticky-signup is-outlined is-info">
                 Sign up
+            </div>
+            <div class="sticky-form">
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {{ user_form|bulma }}
+                    <input type="submit" class="btn" value="signup">
+                </form>
             </div>
                 <video autoplay muted loop id="ttitd-vid">
                     <source src="/static/assets/vid/opener/TTITD.mp4" type="video/mp4">
@@ -76,6 +94,13 @@
                 <div class="button is-large sticky-signup is-outlined is-info">
                     Sign up
                 </div>
+                <div class="sticky-form">
+                    <form method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        {{ user_form|bulma }}
+                        <input type="submit" class="btn" value="signup">
+                    </form>
+                </div>
                 <h1 class="title has-text-danger is-1">
                     Section 2
                 </h1>
@@ -88,6 +113,13 @@
             <div class="has-text-centered black-box">
             <div class="button is-large sticky-signup is-outlined is-info">
                 Sign up
+            </div>
+            <div class="sticky-form">
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {{ user_form|bulma }}
+                    <input type="submit" class="btn" value="signup">
+                </form>
             </div>
                 <br><br><br><br>
                 <h1 class="title has-text-danger is-1">
@@ -105,6 +137,13 @@
                 <div class="button is-large sticky-signup is-outlined is-info">
                     Sign up
                 </div>
+            <div class="sticky-form">
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {{ user_form|bulma }}
+                    <input type="submit" class="btn" value="signup">
+                </form>
+            </div>
                 <h1 class="title has-text-danger is-1">
                     Section 4
                 </h1>
@@ -122,6 +161,13 @@
                 <div class="button is-large sticky-signup is-outlined is-info">
                     Sign up
                 </div>
+                <div class="sticky-form">
+                    <form method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        {{ user_form|bulma }}
+                        <input type="submit" class="btn" value="signup">
+                    </form>
+                </div>
                 <h1 class="title has-text-danger is-1">
                     Section 5
                 </h1>
@@ -136,8 +182,15 @@
                 <div class="button is-large sticky-signup is-outlined is-info">
                     Sign up
                 </div>
+                <div class="sticky-form">
+                    <form method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        {{ user_form|bulma }}
+                        <input type="submit" class="btn" value="signup">
+                    </form>
+                </div>
                 <h1 class="title has-text-danger is-1">
-                    Section 2
+                    Section 6
                 </h1>
                 <br><br>
                 <h2 class="subtitle has-text-white-ter is-3">

@@ -20,7 +20,9 @@ S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
 
 def home(request):
-  return render(request, 'home.html')
+  user_form = UserCreationForm()
+  context = {'user_form': user_form}
+  return render(request, 'home.html', context)
 
 # To access user profile use:
 # users = User.objects.all().select_related('profile')
@@ -28,7 +30,7 @@ def home(request):
 def profile(request):
     profile = request.user.profile
     user_id = request.user.id
-    # avatar = ProfilePhoto.objects.get(profile=profile)
+    avatar = ProfilePhoto.objects.get(profile=profile)
     return render(request, 'profile/detail.html', {
       'user_id': user_id,
       'p': profile,

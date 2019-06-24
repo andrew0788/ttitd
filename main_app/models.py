@@ -57,6 +57,9 @@ class User_Drug_Effects(models.Model):
     drug = models.ForeignKey('Drug', on_delete=models.CASCADE)
     user = models.ForeignKey('Profile', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.adj.name
+
 class Photo(models.Model):
     url = models.CharField(max_length=200)
     drug = models.ForeignKey(Drug, on_delete=models.CASCADE)
@@ -68,8 +71,8 @@ class Trip_Report(models.Model):
     trip_name = models.CharField(max_length=50)
     METHODS = Choices('edible', 'smoked', 'oil/lotion', 'other')
     OTHER_DRUGS = Choices('Alcohol', 'Cannabis', 'Mushrooms', 'Peyote')
-    user_key = models.ForeignKey(User, on_delete=models.CASCADE)
-    drug_key = models.ForeignKey(Drug, on_delete=models.CASCADE)
+    user_key = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    drug_key = models.ForeignKey(Drug, on_delete=models.CASCADE, related_name='drug')
     text_content = models.TextField(max_length=250)
     date = models.DateField()
     method = models.CharField(max_length=250, choices=METHODS)
@@ -89,7 +92,7 @@ class Report_Comment(models.Model):
 
 class TripReportPhoto(models.Model):
     url = models.CharField(max_length=200)
-    trip_report = models.ForeignKey(Trip_Report, on_delete=models.CASCADE)
+    trip_report_key = models.ForeignKey(Trip_Report, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Photo for trip_id: at {self.trip_report_id} @{self.url}"

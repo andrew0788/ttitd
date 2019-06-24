@@ -11,12 +11,13 @@
     <title>That Time in the Desert</title>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script defer src="{% static 'js/main.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <link href="{% sass_src 'styles/style.scss' %}" rel="stylesheet" type="text/css" />
 
 </head>
     <header>
-        <nav class="navbar"role="navigation">
+        <nav class="navbar mobi_nav has-background-grey-dark"role="navigation">
             <div class="navbar-brand">
                                     <div class="mobi_nav_links buttons are-small">
                                         {% if user.is_authenticated %}
@@ -37,21 +38,17 @@
             </div>
         </nav>
     </header>
-
-    start of body
     <main class="container">
         {% block content %}
         {% endblock %}
     </main>
-    end of body
-
     <footer>
-        <nav class="navbar" role="navigation">
+        <nav class="navbar has-background-black-ter" role="navigation">
             <div class="navbar-menu">
-                <figure class="image is-32x32 cactus">
+                <figure class="image is-64x64 cactus">
                     <img src="{% static 'assets/img/nav/sherpa_nav.png' %}" class="cactus">
                 </figure>
-                    <div class="nav_links buttons are-small">
+                    <div class="nav_links buttons are-large">
                         {% if user.is_authenticated %}
                         <a class="button is-black" href="{% url 'profile' %}">Profile</a>
                         <a class="button is-black" href="{% url 'trips_all' %}">Trip Reports</a>
@@ -66,6 +63,6 @@
             </div>
         </nav>
     </footer>
-</body>
+</body class="has-background-grey-darker">
 
 </html>

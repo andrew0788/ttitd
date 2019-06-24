@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from django.db import transaction
@@ -13,7 +14,7 @@ from django.db.models.signals import post_save
 import uuid
 import boto3
 from .forms import ProfileForm, UserForm, TripForm
-from .models import Profile, Drug, Effect, User_Drug_Effects, User, Trip_Report
+from .models import Profile, Drug, Effect, User_Drug_Effects, User, Trip_Report, ProfilePhoto
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'ttitd'
@@ -21,19 +22,18 @@ BUCKET = 'ttitd'
 def home(request):
   return render(request, 'home.html')
 
+# To access user profile use:
+# users = User.objects.all().select_related('profile')
 @login_required
 def profile(request):
     profile = request.user.profile
     user_id = request.user.id
-
+    avatar = ProfilePhoto.objects.get(profile=profile)
     return render(request, 'profile/detail.html', {
       'user_id': user_id,
       'p': profile,
       })
 
-
-# To access user profile use:
-# users = User.objects.all().select_related('profile')
 
 def signup(request):
   if request.method == 'POST':
@@ -41,7 +41,17 @@ def signup(request):
     if user_form.is_valid():
       user = user_form.save()
       login(request, user)
-      return redirect('/') #Update to route to the Profile Update view
+      profile = request.user.profile
+      user_id = request.user.id
+      new_user = True
+      user_form = UserForm(instance=request.user)
+      profile_form = ProfileForm(instance=request.user.profile)
+      return render(request, 'profile/detail.html', {
+          'user_id': user_id,
+          'p': profile,
+          'new_user': new_user,
+          'profile_form': profile_form
+      })
     else:
       error_message = 'Invalid credentials -- try again'
   else:
@@ -49,37 +59,6 @@ def signup(request):
   context = {'user_form': user_form}
   return render(request, 'registration/signup.html', context)
 
-def create_trip(request, substance_id):
-  substance = Drug.objects.get(id=substance_id)
-  user_id = request.user
-  if request.method == 'POST':
-    trip_form = TripForm(request.POST)
-    if trip_form.is_valid():
-      trip_form.instance.drug_key = substance
-      trip_form.instance.user_key = user_id
-      trip_form.save()
-      # Update to route to the Profile Update view
-      return redirect(f"/substances/{substance_id}/detail")
-    else:
-        error_message = 'Invalid credentials -- try again'
-  else:
-    trip_form = TripForm()
-  return render(request, 'trips/create.html', {
-    'trip_form': trip_form,
-    'substance': substance_id
-  })
-
-
-
-
-# class TripCreate(LoginRequiredMixin, CreateView):
-#   model = Trip_Report
-#   fields = ['trip_name', 'text_content', 
-#   'date', 'method', 'other_drugs_taken']
-
-#   def form_valid(self, form):
-#     form.instance.drug_key = self.kwargs['id']
-#     return super(TripCreate, self).form_valid(form)
 
 @login_required
 @transaction.atomic
@@ -101,10 +80,12 @@ def profile_update(request):
         'profile_form': profile_form
     })
 
+
 @login_required
 class ProfileDelete(DeleteView):
     model = User
     success_url = '/'
+
 
 def substances_index(request):
   substance = Drug.objects.all()
@@ -112,17 +93,57 @@ def substances_index(request):
     'substance': substance
   })
 
+
 def substances_detail(request, d_id):
     substance = Drug.objects.get(id=d_id)
-    return render(request, 'substances/detail.html', {'substance': substance})
+    trips = Trip_Report.objects.filter(drug_key_id=d_id)
+    user_drug_effects = User_Drug_Effects.objects.filter(drug=d_id)
+    return render(request, 'substances/detail.html', {'substance': substance, 'trips': trips, 'user_drug_effects': user_drug_effects})
+
 
 def trips_all(request):
   return render(request, 'trips/index.html')
 
-# delete this
-def trips_detail(request):
-  return render(request, 'trips/detail.html')
-# *** delete this
+
+@login_required
+def trips_create(request, substance_id):
+  substance = Drug.objects.get(id=substance_id)
+  user_id = request.user
+  if request.method == 'POST':
+    trip_form = TripForm(request.POST)
+    if trip_form.is_valid():
+      trip_form.instance.drug_key = substance
+      trip_form.instance.user_key = user_id
+      trip_form.save()
+      # Update to route to the Profile Update view
+      return redirect(f"/substances/{substance_id}/detail")
+    else:
+        error_message = 'Invalid credentials -- try again'
+  else:
+    trip_form = TripForm()
+  return render(request, 'trips/create.html', {
+    'trip_form': trip_form,
+    'substance': substance_id
+  })
+
+
+def report_detail(request, report_id):
+  report = Trip_Report.objects.get(id=report_id)
+  return render(request, 'trips/detail.html', {
+    'report':report,
+  })
+
+
+@method_decorator(login_required, name='dispatch')
+class TripUpdate(UpdateView):
+    model = Trip_Report
+    fields = ['trip_name', 'method', 'text_content', 'effects', 'other_drugs_taken']
+
+
+class TripDelete(DeleteView):
+    model = Trip_Report
+    success_url = '/'
+
 
 @login_required
 def add_photo(request, drug_id):

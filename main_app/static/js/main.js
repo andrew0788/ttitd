@@ -19,9 +19,9 @@ const stickySignup = document.querySelector('div.sticky-form');
 const openerTitles = document.getElementById('titleCactus');
 var openTimeVid
 
-document.querySelector('.sticky-signup').addEventListener('click', showSignForm);
-document.querySelector('.cactus_mobi').addEventListener('click', mobi_nav_toggle);
 document.querySelector('.cactus').addEventListener('click', nav_toggle);
+document.querySelector('.cactus_mobi').addEventListener('click', mobi_nav_toggle);
+document.querySelector('.sticky-signup').addEventListener('click', showSignForm);
 document.getElementById('startup').addEventListener('mouseenter', showVid, false);
 
 function showSignForm() {

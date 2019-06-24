@@ -66,8 +66,9 @@
         <div class="tile is-child box">
             <p class="title">text_content</p>
             <p>{{ report.text_content }}<a href='{% url 'report_detail' report.id %}'>Read the rest</a></p>
-                {% if report.user_key == request.user_key %}
+                {% if report.user_key == request.user %}
                 <a href="{% url 'trip_delete' report.id %}">Delete</a>
+                <a href="{% url 'trip_update' report.id %}">Update</a>
                 {% endif %}
         </div>
     </div>

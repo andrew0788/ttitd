@@ -188,6 +188,8 @@ html {
   position: absolute;
   position: sticky;
   top: 0;
+  z-index: 2;
+  
 }
 
 .title-container {
@@ -230,6 +232,13 @@ html {
 
 .sub-title-vid {
   padding-left: 20%;
+}
+
+.sticky-form {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: none;
 }
 
 .container-back-overlay {
@@ -449,7 +458,7 @@ html {
 
     100% {
         display: block;
-        opacity: .5;
+        opacity: .0;
     }
 }
 

@@ -94,8 +94,8 @@ class TripReportPhoto(models.Model):
     url = models.CharField(max_length=200)
     trip_report_key = models.ForeignKey(Trip_Report, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"Photo for trip_id: at {self.trip_report_id} @{self.url}"
+    # def __str__(self):
+    #     return f"Photo for trip_id: at {self.trip_report_id} @{self.url}"
 
 class ProfilePhoto(models.Model):
     url = models.CharField(max_length=200, default='https://www.fillmurray.com/200/300')

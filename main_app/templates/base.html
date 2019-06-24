@@ -38,12 +38,10 @@
             </div>
         </nav>
     </header>
-    <main class="container">
         {% block content %}
         {% endblock %}
-    </main>
     <footer>
-        <nav class="navbar has-background-black-ter" role="navigation">
+        <nav class="navbar has-background-black-ter nav-fixed" role="navigation">
             <div class="navbar-menu">
                 <figure class="image is-64x64 cactus">
                     <img src="{% static 'assets/img/nav/sherpa_nav.png' %}" class="cactus">
@@ -63,6 +61,5 @@
             </div>
         </nav>
     </footer>
-</body class="has-background-grey-darker">
 
 </html>

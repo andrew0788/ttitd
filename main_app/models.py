@@ -57,6 +57,9 @@ class User_Drug_Effects(models.Model):
     drug = models.ForeignKey('Drug', on_delete=models.CASCADE)
     user = models.ForeignKey('Profile', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.adj.name
+
 class Photo(models.Model):
     url = models.CharField(max_length=200)
     drug = models.ForeignKey(Drug, on_delete=models.CASCADE)

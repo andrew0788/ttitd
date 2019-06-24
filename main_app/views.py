@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.dispatch import receiver
 from django.db import transaction
@@ -21,6 +22,8 @@ BUCKET = 'ttitd'
 def home(request):
   return render(request, 'home.html')
 
+# To access user profile use:
+# users = User.objects.all().select_related('profile')
 @login_required
 def profile(request):
     profile = request.user.profile
@@ -30,9 +33,6 @@ def profile(request):
       'p': profile,
       })
 
-
-# To access user profile use:
-# users = User.objects.all().select_related('profile')
 
 def signup(request):
   if request.method == 'POST':
@@ -58,37 +58,6 @@ def signup(request):
   context = {'user_form': user_form}
   return render(request, 'registration/signup.html', context)
 
-def create_trip(request, substance_id):
-  substance = Drug.objects.get(id=substance_id)
-  user_id = request.user
-  if request.method == 'POST':
-    trip_form = TripForm(request.POST)
-    if trip_form.is_valid():
-      trip_form.instance.drug_key = substance
-      trip_form.instance.user_key = user_id
-      trip_form.save()
-      # Update to route to the Profile Update view
-      return redirect(f"/substances/{substance_id}/detail")
-    else:
-        error_message = 'Invalid credentials -- try again'
-  else:
-    trip_form = TripForm()
-  return render(request, 'trips/create.html', {
-    'trip_form': trip_form,
-    'substance': substance_id
-  })
-
-
-
-
-# class TripCreate(LoginRequiredMixin, CreateView):
-#   model = Trip_Report
-#   fields = ['trip_name', 'text_content',
-#   'date', 'method', 'other_drugs_taken']
-
-#   def form_valid(self, form):
-#     form.instance.drug_key = self.kwargs['id']
-#     return super(TripCreate, self).form_valid(form)
 
 @login_required
 @transaction.atomic
@@ -110,10 +79,12 @@ def profile_update(request):
         'profile_form': profile_form
     })
 
+
 @login_required
 class ProfileDelete(DeleteView):
     model = User
     success_url = '/'
+
 
 def substances_index(request):
   substance = Drug.objects.all()
@@ -121,26 +92,57 @@ def substances_index(request):
     'substance': substance
   })
 
+
 def substances_detail(request, d_id):
     substance = Drug.objects.get(id=d_id)
     trips = Trip_Report.objects.filter(drug_key_id=d_id)
     print(trips)
     return render(request, 'substances/detail.html', {'substance': substance, 'trips': trips})
 
+
 def trips_all(request):
   return render(request, 'trips/index.html')
 
-# delete this
-def trips_detail(request, t_id):
-  trip = Trip_Report.objects.get(id=t_id)
-  return render(request, 'trips/detail.html', {
-    'trip':trip,
+
+@login_required
+def trips_create(request, substance_id):
+  substance = Drug.objects.get(id=substance_id)
+  user_id = request.user
+  if request.method == 'POST':
+    trip_form = TripForm(request.POST)
+    if trip_form.is_valid():
+      trip_form.instance.drug_key = substance
+      trip_form.instance.user_key = user_id
+      trip_form.save()
+      # Update to route to the Profile Update view
+      return redirect(f"/substances/{substance_id}/detail")
+    else:
+        error_message = 'Invalid credentials -- try again'
+  else:
+    trip_form = TripForm()
+  return render(request, 'trips/create.html', {
+    'trip_form': trip_form,
+    'substance': substance_id
   })
-# *** delete this
+
+
+def report_detail(request, report_id):
+  report = Trip_Report.objects.get(id=report_id)
+  return render(request, 'trips/detail.html', {
+    'report':report,
+  })
+
+
+@method_decorator(login_required, name='dispatch')
+class TripUpdate(UpdateView):
+    model = Trip_Report
+    fields = ['trip_name', 'method', 'text_content', 'effects', 'other_drugs_taken']
+
 
 class TripDelete(DeleteView):
     model = Trip_Report
     success_url = '/'
+
 
 @login_required
 def add_photo(request, drug_id):
